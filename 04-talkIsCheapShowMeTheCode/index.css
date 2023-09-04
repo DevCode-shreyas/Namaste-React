@@ -33,7 +33,8 @@
 
 .res-container {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: space-evenly;
     flex-wrap: wrap;
     border: 1px solid black;
 }
