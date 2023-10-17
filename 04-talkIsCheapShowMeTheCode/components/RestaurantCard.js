@@ -1,28 +1,44 @@
-import { CDN_URL } from "../utils/constants";
+// import { IMG_CDN_URL } from "../constants";
 
-const RestaurantCard = (props) => {
-  const { resData } = props;
-  const {
-    cloudinaryImageId,
-    name,
-    avgRating,
-    cuisines,
-    costForTwo,
-    deliveryTime,
-  } = resData?.data;
-
+// Restaurant card component: Image, name, cuisine
+const RestaurantCard = ({
+  cloudinaryImageId,
+  name,
+  cuisines,
+  areaName,
+  sla,
+  costForTwo,
+  avgRatingString,
+}) => {
   return (
-    <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
+    <div className="card">
       <img
-        className="res-logo"
-        alt="res-logo"
-        src={CDN_URL + cloudinaryImageId}
+        src={
+          "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
+          cloudinaryImageId
+        }
       />
       <h3>{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
-      <h4>{avgRating}</h4>
-      <h4>{costForTwo / 100}</h4>
-      <h4>{deliveryTime} minutes</h4>
+      <h5>{cuisines.join(", ")}</h5>
+      <h5>{areaName}</h5>
+      <span>
+        <h4
+          style={
+            avgRatingString < 4
+              ? { backgroundColor: "var(--light-red)" }
+              : avgRatingString === "--"
+              ? { backgroundColor: "white", color: "black" }
+              : { color: "white" }
+          }
+        >
+          <i className="fa-solid fa-star"></i>
+          {avgRatingString}
+        </h4>
+        <h4>•</h4>
+        <h4>{sla?.lastMileTravelString ?? "2.0 km"}</h4>
+        <h4>•</h4>
+        <h4>{costForTwo ?? "₹200 for two"}</h4>
+      </span>
     </div>
   );
 };
