@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import useParams from "react-router-dom";
+import { MENU_API } from "../utils/constants";
 
 const RestaurantMenu = () => {
   useEffect(() => {
@@ -8,20 +9,17 @@ const RestaurantMenu = () => {
   }, []);
 
   const fetchMenu = async () => {
-    const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
-    const [restaurant, setRestaurant] = useState(null); // call useState to store the api data in res
+    const { resId } = useParams();
+    const [restaurant, setRestaurant] = useState(null);
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
-      getRestaurantInfo(); // call getRestaurantInfo function so it fetch api data and set data in restaurant state variable
+      getRestaurantInfo();
     }, []);
 
     async function getRestaurantInfo() {
       try {
-        const response = await fetch(
-          "https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=21.1702401&lng=72.83106070000001&&submitAction=ENTER&restaurantId=" +
-            resId
-        );
+        const response = await fetch(MENU_API + resId);
         const json = await response.json();
 
         // Set restaurant data
