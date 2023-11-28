@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { LOGO_URL } from "../utils/constants";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
@@ -9,6 +10,8 @@ const Header = () => {
   useEffect(() => {
     console.log("useEffect called");
   }, [btnNameReact]);
+
+  const cartItems = useSelector((store) => store.cart.items);
 
   return (
     <div className="flex justify-between">
@@ -26,7 +29,7 @@ const Header = () => {
           <li>
             <Link to="./contact">Contact Us</Link>
           </li>
-          <li>Cart</li>
+          <li className="px-4">Cart {cartItems.length} </li>
           <button
             className="login"
             onClick={() => {
